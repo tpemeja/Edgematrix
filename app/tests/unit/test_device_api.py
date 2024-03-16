@@ -1,23 +1,25 @@
 from fastapi.testclient import TestClient
-from app.main import app
 from app.models.device import Device, DeviceDeletionResponse
 
-client = TestClient(app)
+from app.main import app
 
-DEVICE_DATA = Device.Config.json_schema_extra['example']
+DEVICE_DATA = Device.model_config["json_schema_extra"]["example"]
 
 
 def test_create_device():
     # Test creating a new device
+    with TestClient(app) as client:
+        response = client.post("/devices/", json=DEVICE_DATA)
 
-    response = client.post("/devices/", json=DEVICE_DATA)
     assert response.status_code == 201  # Check status code
     assert response.json() == DEVICE_DATA  # Check response data
 
 
 def test_read_device():
     # Test reading an existing device
-    response = client.get(f"/devices/{DEVICE_DATA['device_uuid']}")
+    with TestClient(app) as client:
+        response = client.get(f"/devices/{DEVICE_DATA['device_uuid']}")
+
     assert response.status_code == 200  # Check status code
     assert response.json() == DEVICE_DATA  # Check response data
 
@@ -30,14 +32,17 @@ def test_update_device():
         "deployment_date": "2024-03-14",
         "owner": "updated_owner@example.com"
     }
-    response = client.put("/devices/", json=updated_device_data)
+    with TestClient(app) as client:
+        response = client.put("/devices/", json=updated_device_data)
+
     assert response.status_code == 200  # Check status code
     assert response.json() == updated_device_data  # Check response data
 
 
 def test_delete_device():
     # Test deleting an existing device
-    response = client.delete(f"/devices/{DEVICE_DATA['device_uuid']}")
-    assert response.status_code == 200  # Check status code
-    assert response.json() == DeviceDeletionResponse  # Check response data
+    with TestClient(app) as client:
+        response = client.delete(f"/devices/{DEVICE_DATA['device_uuid']}")
 
+    assert response.status_code == 200  # Check status code
+    assert response.json() == vars(DeviceDeletionResponse())  # Check response data

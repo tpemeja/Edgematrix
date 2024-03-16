@@ -19,10 +19,11 @@ class Coordinate(BaseModel):
             raise ValueError("Longitude must be between -180 and 180 degrees")
         return v
 
-    class Config:
-        json_schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "latitude": 35.6582,
                 "longitude": 139.8752
             }
         }
+    }

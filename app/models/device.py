@@ -28,8 +28,8 @@ class Device(BaseModel):
                              "followed by a single uppercase letter and six digits (e.g., DEVX000001).")
         return uuid
 
-    class Config:
-        json_schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "device_uuid": "DEVX000001",
                 "localisation": {
@@ -40,6 +40,7 @@ class Device(BaseModel):
                 "owner": "tpemeja@edgematrix.com"
             }
         }
+    }
 
 
 class DeviceNotFoundResponse(BaseModel):
