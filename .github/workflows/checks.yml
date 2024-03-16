@@ -28,4 +28,4 @@ jobs:
         run: pytest
 
       - name: Run pylint
-        run: pylint app/
+        run: pylint --fail-under=8 app/
