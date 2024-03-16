@@ -1,9 +1,11 @@
+from typing import Annotated
 from fastapi import APIRouter, Path, status
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from app.models.device import Device, DeviceNotFoundResponse, DeviceAlreadyExists, DeviceDeletionResponse
+from app.models.device import (Device, DeviceNotFoundResponse,
+                               DeviceAlreadyExists, DeviceDeletionResponse)
 from app.database.operations import devices
-from typing import Annotated
+
 
 router = APIRouter()
 
@@ -26,7 +28,10 @@ def create_device(device: Device):
     item = devices.get_device(device.device_uuid)
 
     if item is not None:
-        return JSONResponse(status_code=status.HTTP_409_CONFLICT, content=jsonable_encoder(DeviceAlreadyExists()))
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content=jsonable_encoder(DeviceAlreadyExists())
+        )
 
     devices.create_device(device)
 
@@ -43,8 +48,9 @@ def create_device(device: Device):
             })
 def read_device(device_uuid: Annotated[str, Path(pattern=Device.UUID_REGEX_PATTERN,
                                                  examples=["DEVX000001"],
-                                                 description="The uuid of the device. It should start with the "
-                                                             "prefix (DEV), a single variable character [A-Z], "
+                                                 description="The uuid of the device. It should "
+                                                             "start with the prefix (DEV), a "
+                                                             "single variable character [A-Z], "
                                                              "and six integers.")]):
     """
     Read a device by its UUID.
@@ -55,7 +61,10 @@ def read_device(device_uuid: Annotated[str, Path(pattern=Device.UUID_REGEX_PATTE
     item = devices.get_device(device_uuid)
 
     if item is None:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content=jsonable_encoder(DeviceNotFoundResponse()))
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=jsonable_encoder(DeviceNotFoundResponse())
+        )
 
     return item
 
@@ -78,7 +87,10 @@ def update_device(device: Device):
     item = devices.get_device(device.device_uuid)
 
     if item is None:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content=jsonable_encoder(DeviceNotFoundResponse()))
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=jsonable_encoder(DeviceNotFoundResponse())
+        )
 
     devices.update_device(device)
 
@@ -95,9 +107,10 @@ def update_device(device: Device):
                })
 def delete_device(device_uuid: Annotated[str, Path(pattern=Device.UUID_REGEX_PATTERN,
                                                    examples=["DEVX000001"],
-                                                   description="The uuid of the device. It should start with "
-                                                               "the prefix (DEV), a single variable character ["
-                                                               "A-Z], and six integers.")]):
+                                                   description="The uuid of the device. It should "
+                                                               "start with the prefix (DEV), "
+                                                               "a single variable character "
+                                                               "[A-Z], and six integers.")]):
     """
     Delete a device by its UUID.
 
@@ -108,7 +121,10 @@ def delete_device(device_uuid: Annotated[str, Path(pattern=Device.UUID_REGEX_PAT
     item = devices.get_device(device_uuid)
 
     if item is None:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content=jsonable_encoder(DeviceNotFoundResponse()))
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=jsonable_encoder(DeviceNotFoundResponse())
+        )
 
     devices.delete_device(device_uuid)
 

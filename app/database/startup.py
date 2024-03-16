@@ -2,8 +2,8 @@ import sqlite3
 
 
 def setup_database(db_name='devices.db'):
-    with sqlite3.connect(db_name) as db:
-        cursor = db.cursor()
+    with sqlite3.connect(db_name) as database:
+        cursor = database.cursor()
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS coordinates (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,4 +21,4 @@ def setup_database(db_name='devices.db'):
                 FOREIGN KEY (localisation_id) REFERENCES coordinates(id)
             )
         ''')
-        db.commit()
+        database.commit()

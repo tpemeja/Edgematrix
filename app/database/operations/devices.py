@@ -3,8 +3,8 @@ from app.models.device import Device
 
 
 def create_device(device: Device, db_name='devices.db'):
-    with sqlite3.connect(db_name) as db:
-        cursor = db.cursor()
+    with sqlite3.connect(db_name) as database:
+        cursor = database.cursor()
 
         # Check if the coordinates exist
         cursor.execute("SELECT id FROM coordinates WHERE latitude = ? AND longitude = ?",
@@ -17,23 +17,25 @@ def create_device(device: Device, db_name='devices.db'):
             # If coordinate_id doesn't exist, create a new coordinate
             cursor.execute("INSERT INTO coordinates (latitude, longitude) VALUES (?, ?)",
                            (device.localisation.latitude, device.localisation.longitude))
-            db.commit()
+            database.commit()
             coordinate_id = cursor.lastrowid  # Retrieve the last inserted row ID
 
         # Insert the device
         cursor.execute("INSERT INTO devices (device_uuid, localisation_id, deployment_date, owner) "
                        "VALUES (?, ?, ?, ?)",
                        (device.device_uuid, coordinate_id, device.deployment_date, device.owner))
-        db.commit()
+        database.commit()
 
 
 def get_device(device_uuid: str, db_name='devices.db'):
-    with sqlite3.connect(db_name) as db:
-        cursor = db.cursor()
+    with sqlite3.connect(db_name) as database:
+        cursor = database.cursor()
 
         cursor.execute("SELECT devices.device_uuid, devices.deployment_date, devices.owner, "
-                       "coordinates.latitude, coordinates.longitude FROM devices INNER JOIN coordinates ON "
-                       "coordinates.id = devices.localisation_id WHERE device_uuid = ?",
+                       "coordinates.latitude, coordinates.longitude "
+                       "FROM devices INNER JOIN coordinates "
+                       "ON coordinates.id = devices.localisation_id "
+                       "WHERE device_uuid = ?",
                        (device_uuid,))
         device_data = cursor.fetchone()
 
@@ -51,13 +53,13 @@ def get_device(device_uuid: str, db_name='devices.db'):
             }
 
             return device_dict
-        else:
-            return None
+
+        return None
 
 
 def update_device(device: Device, db_name='devices.db'):
-    with sqlite3.connect(db_name) as db:
-        cursor = db.cursor()
+    with sqlite3.connect(db_name) as database:
+        cursor = database.cursor()
 
         # Check if the coordinates exist
         cursor.execute("SELECT id FROM coordinates WHERE latitude = ? AND longitude = ?",
@@ -70,7 +72,7 @@ def update_device(device: Device, db_name='devices.db'):
             # If coordinate_id doesn't exist, create a new coordinate
             cursor.execute("INSERT INTO coordinates (latitude, longitude) VALUES (?, ?)",
                            (device.localisation.latitude, device.localisation.longitude))
-            db.commit()
+            database.commit()
             coordinate_id = cursor.lastrowid  # Retrieve the last inserted row ID
 
         # Update the device with the new data
@@ -80,14 +82,14 @@ def update_device(device: Device, db_name='devices.db'):
             "WHERE devices.device_uuid = ?",
             (device.deployment_date, device.owner, coordinate_id, device.device_uuid)
         )
-        db.commit()
+        database.commit()
 
 
 def delete_device(device_uuid: str, db_name='devices.db'):
-    with sqlite3.connect(db_name) as db:
-        cursor = db.cursor()
+    with sqlite3.connect(db_name) as database:
+        cursor = database.cursor()
 
         cursor.execute("DELETE FROM devices "
                        "WHERE device_uuid = ?",
                        (device_uuid,))
-        db.commit()
+        database.commit()
