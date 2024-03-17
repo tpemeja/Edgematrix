@@ -27,11 +27,6 @@ jobs:
       - name: Install and run pylint
         run: |
           pip install pylint
-          pylint --fail-under=8 app/
-
-      - name: Install and run pylint
-        run: |
-          pip install pylint
           pylint --fail-under=${{ vars.PYLINT_THRESHOLD }} app/
 
       - name: Log in to Docker Hub
@@ -47,5 +42,8 @@ jobs:
           # Generate a tag based on branch name
           tag_name="${branch_name}-latest"
           
-          # Use the tag name for building and pushing the image
+          # Build and tag the Docker image
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/edgematrix:$tag_name .
+
+          # Push the Docker image to Docker Hub
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/edgematrix:$tag_name
