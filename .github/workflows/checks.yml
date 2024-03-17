@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Push Docker image
+      - name: Create and Push Docker image
         run: |
           branch_name=$(git rev-parse --abbrev-ref HEAD)
           
@@ -44,6 +44,6 @@ jobs:
           
           # Build and tag the Docker image
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/edgematrix:$tag_name .
-
+          
           # Push the Docker image to Docker Hub
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/edgematrix:$tag_name
