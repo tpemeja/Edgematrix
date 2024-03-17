@@ -1,3 +1,7 @@
+"""
+Module containing unit tests for device-related endpoints.
+"""
+
 from fastapi.testclient import TestClient
 from fastapi import status
 from app.models.device import DeviceDeletionResponse
@@ -28,7 +32,9 @@ UPDATED_DEVICE_DATA = {
 
 
 def test_create_device():
-    # Test creating a new device
+    """
+    Test creating a new device.
+    """
     with TestClient(app) as client:
         response = client.post("/devices/", json=DEVICE_DATA)
 
@@ -37,7 +43,9 @@ def test_create_device():
 
 
 def test_read_device():
-    # Test reading an existing device
+    """
+    Test reading an existing device.
+    """
     with TestClient(app) as client:
         response = client.get(f"/devices/{DEVICE_DATA['device_uuid']}")
 
@@ -46,7 +54,9 @@ def test_read_device():
 
 
 def test_update_device():
-    # Test updating an existing device
+    """
+    Test updating an existing device.
+    """
     with TestClient(app) as client:
         response = client.put("/devices/", json=UPDATED_DEVICE_DATA)
 
@@ -55,7 +65,9 @@ def test_update_device():
 
 
 def test_delete_device():
-    # Test deleting an existing device
+    """
+    Test deleting an existing device.
+    """
     with TestClient(app) as client:
         response = client.delete(f"/devices/{DEVICE_DATA['device_uuid']}")
 

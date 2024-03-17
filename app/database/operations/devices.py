@@ -1,8 +1,24 @@
+"""
+Module containing CRUD operations for devices using an SQLite database.
+"""
+
 import aiosqlite
 from app.models.device import Device
 
 
 async def create_device(device: Device, db_name='devices.db'):
+    """
+    Creates a new device in the database.
+
+    If the coordinates for the device's location do not exist, they are first created
+    in the 'coordinates' table.
+    The device information, including UUID, deployment date, and owner, is then inserted
+    into the 'devices' table.
+
+    Parameters:
+    - device (Device): The device object containing information to be inserted.
+    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    """
     async with aiosqlite.connect(db_name) as database:
         async with database.cursor() as cursor:
             # Check if the coordinates exist
@@ -28,6 +44,16 @@ async def create_device(device: Device, db_name='devices.db'):
 
 
 async def get_device(device_uuid: str, db_name='devices.db'):
+    """
+    Retrieves a device from the database based on its UUID.
+
+    Parameters:
+    - device_uuid (str): The UUID of the device to retrieve.
+    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+
+    Returns:
+    - dict or None: A dictionary containing device information if found, else None.
+    """
     async with aiosqlite.connect(db_name) as database:
         async with database.cursor() as cursor:
             await cursor.execute(
@@ -58,6 +84,16 @@ async def get_device(device_uuid: str, db_name='devices.db'):
 
 
 async def update_device(device: Device, db_name='devices.db'):
+    """
+    Updates an existing device in the database with new information.
+
+    If the coordinates for the updated location do not exist, they are first created
+    in the 'coordinates' table.
+
+    Parameters:
+    - device (Device): The updated device object.
+    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    """
     async with aiosqlite.connect(db_name) as database:
         async with database.cursor() as cursor:
             # Check if the coordinates exist
@@ -85,6 +121,13 @@ async def update_device(device: Device, db_name='devices.db'):
 
 
 async def delete_device(device_uuid: str, db_name='devices.db'):
+    """
+    Deletes a device from the database based on its UUID.
+
+    Parameters:
+    - device_uuid (str): The UUID of the device to delete.
+    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    """
     async with aiosqlite.connect(db_name) as database:
         async with database.cursor() as cursor:
             await cursor.execute("DELETE FROM devices "

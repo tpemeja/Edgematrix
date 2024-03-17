@@ -1,3 +1,7 @@
+"""
+Module containing the setup for the FastAPI application.
+"""
+
 from fastapi import FastAPI
 from app.database.startup import setup_database
 from app.api.routers import devices

@@ -1,7 +1,21 @@
+"""
+Module containing functions related to database setup.
+"""
+
 import sqlite3
 
 
 def setup_database(db_name='devices.db'):
+    """
+    Sets up the device management database.
+
+    This function creates two tables: 'coordinates' and 'devices'.
+    - The 'coordinates' table stores latitude and longitude values.
+    - The 'devices' table stores device information, including UUID, deployment date, and owner.
+
+    Parameters:
+    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    """
     with sqlite3.connect(db_name) as database:
         cursor = database.cursor()
         cursor.execute('''

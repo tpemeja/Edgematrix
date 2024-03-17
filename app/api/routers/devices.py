@@ -1,3 +1,7 @@
+"""
+Module containing the device API endpoints.
+"""
+
 from typing import Annotated
 from fastapi import APIRouter, Path, status
 from fastapi.responses import JSONResponse
