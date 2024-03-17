@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+from fastapi import status
 from app.models.device import Device, DeviceDeletionResponse
 
 from app.main import app
@@ -11,7 +12,7 @@ def test_create_device():
     with TestClient(app) as client:
         response = client.post("/devices/", json=DEVICE_DATA)
 
-    assert response.status_code == 201  # Check status code
+    assert response.status_code == status.HTTP_201_CREATED  # Check status code
     assert response.json() == DEVICE_DATA  # Check response data
 
 
@@ -20,7 +21,7 @@ def test_read_device():
     with TestClient(app) as client:
         response = client.get(f"/devices/{DEVICE_DATA['device_uuid']}")
 
-    assert response.status_code == 200  # Check status code
+    assert response.status_code == status.HTTP_200_OK  # Check status code
     assert response.json() == DEVICE_DATA  # Check response data
 
 
@@ -35,7 +36,7 @@ def test_update_device():
     with TestClient(app) as client:
         response = client.put("/devices/", json=updated_device_data)
 
-    assert response.status_code == 200  # Check status code
+    assert response.status_code == status.HTTP_200_OK  # Check status code
     assert response.json() == updated_device_data  # Check response data
 
 
@@ -44,5 +45,5 @@ def test_delete_device():
     with TestClient(app) as client:
         response = client.delete(f"/devices/{DEVICE_DATA['device_uuid']}")
 
-    assert response.status_code == 200  # Check status code
+    assert response.status_code == status.HTTP_200_OK  # Check status code
     assert response.json() == vars(DeviceDeletionResponse())  # Check response data
