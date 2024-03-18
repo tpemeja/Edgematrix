@@ -4,9 +4,10 @@ Module containing CRUD operations for devices using an SQLite database.
 
 import aiosqlite
 from app.models.device import Device
+from app.database.startup import DATABASE_PATH
 
 
-async def create_device(device: Device, db_name='devices.db'):
+async def create_device(device: Device, db_name=DATABASE_PATH):
     """
     Creates a new device in the database.
 
@@ -17,7 +18,7 @@ async def create_device(device: Device, db_name='devices.db'):
 
     Parameters:
     - device (Device): The device object containing information to be inserted.
-    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    - db_name (str): The name of the SQLite database file. Default is DATABASE_PATH.
     """
     async with aiosqlite.connect(db_name) as database:
         async with database.cursor() as cursor:
@@ -43,13 +44,13 @@ async def create_device(device: Device, db_name='devices.db'):
             await database.commit()
 
 
-async def get_device(device_uuid: str, db_name='devices.db'):
+async def get_device(device_uuid: str, db_name=DATABASE_PATH):
     """
     Retrieves a device from the database based on its UUID.
 
     Parameters:
     - device_uuid (str): The UUID of the device to retrieve.
-    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    - db_name (str): The name of the SQLite database file. Default is DATABASE_PATH.
 
     Returns:
     - dict or None: A dictionary containing device information if found, else None.
@@ -83,7 +84,7 @@ async def get_device(device_uuid: str, db_name='devices.db'):
             return None
 
 
-async def update_device(device: Device, db_name='devices.db'):
+async def update_device(device: Device, db_name=DATABASE_PATH):
     """
     Updates an existing device in the database with new information.
 
@@ -92,7 +93,7 @@ async def update_device(device: Device, db_name='devices.db'):
 
     Parameters:
     - device (Device): The updated device object.
-    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    - db_name (str): The name of the SQLite database file. Default is DATABASE_PATH.
     """
     async with aiosqlite.connect(db_name) as database:
         async with database.cursor() as cursor:
@@ -120,13 +121,13 @@ async def update_device(device: Device, db_name='devices.db'):
             await database.commit()
 
 
-async def delete_device(device_uuid: str, db_name='devices.db'):
+async def delete_device(device_uuid: str, db_name=DATABASE_PATH):
     """
     Deletes a device from the database based on its UUID.
 
     Parameters:
     - device_uuid (str): The UUID of the device to delete.
-    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    - db_name (str): The name of the SQLite database file. Default is DATABASE_PATH.
     """
     async with aiosqlite.connect(db_name) as database:
         async with database.cursor() as cursor:

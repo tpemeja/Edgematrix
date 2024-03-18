@@ -1,11 +1,12 @@
 """
 Module containing functions related to database setup.
 """
-
 import sqlite3
 
+DATABASE_PATH = "/data/devices.db"
 
-def setup_database(db_name='devices.db'):
+
+def setup_database(db_name=DATABASE_PATH):
     """
     Sets up the device management database.
 
@@ -14,7 +15,7 @@ def setup_database(db_name='devices.db'):
     - The 'devices' table stores device information, including UUID, deployment date, and owner.
 
     Parameters:
-    - db_name (str): The name of the SQLite database file. Default is 'devices.db'.
+    - db_name (str): The name of the SQLite database file. Default is '/data/devices.db'.
     """
     with sqlite3.connect(db_name) as database:
         cursor = database.cursor()
