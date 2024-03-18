@@ -17,7 +17,7 @@ It provides endpoints for creating, reading, updating, and deleting device infor
 git clone <repository_url>
 ```
 
-## Usage
+## Usage - Docker Container
 ### Creating the Docker Image
 To create the Docker image, execute:
 
@@ -41,18 +41,68 @@ Once the Docker container is running, you can access the Swagger UI by navigatin
 ```bash
 http://localhost:<PORT>/docs
 ```
-
-## Testing
 ### Running Tests
 To run tests using pytest inside a Docker container, execute:
-
 ```bash
-docker run myapp pytest
+docker run -v <DATABASE_PATH>:/data myapp pytest
+```
+
+Or to run it on an existing container
+```bash
+docker exec <CONTAINER_NAME|CONTAINER_ID> pytest
 ```
 
 ### Running Linting
 To perform linting using pylint, run:
 
 ```bash
+docker run myapp pylint /code/app
+```
+
+Or to run it on an existing container
+```bash
+docker exec <CONTAINER_NAME|CONTAINER_ID> pylint /code/app
+```
+
+## Usage - Local Testing
+### Installing Requirements
+First, install the required dependencies by running:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Creating Database Directory
+Ensure you have created a directory for the SQLite database. You can create it using the following command:
+
+```bash
+mkdir /data
+```
+
+### Running Tests Locally
+To run tests locally using pytest, execute:
+
+```bash
+pytest
+```
+
+### Running Linting Locally
+To perform linting using pylint locally, run:
+
+```bash
 pylint app/
+```
+
+### Starting the FastAPI Server Locally
+To start the FastAPI server locally, execute:
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port <PORT>
+```
+
+### Accessing the Swagger UI
+Once the FastAPI server is running locally, you can access the Swagger UI by navigating to:
+
+```bash
+http://localhost:<PORT>/docs
 ```

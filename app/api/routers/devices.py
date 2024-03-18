@@ -51,7 +51,7 @@ async def create_device(device: Device):
             })
 async def read_device(
         device_uuid: Annotated[str, Path(pattern=Device.UUID_REGEX_PATTERN,
-                                         examples=["DEVX000001"],
+                                         example="DEVX000001",
                                          description="The uuid of the device. "
                                                      "It should start with the prefix (DEV), "
                                                      "a single variable character [A-Z], "
@@ -111,7 +111,7 @@ async def update_device(device: Device):
                })
 async def delete_device(
         device_uuid: Annotated[str, Path(pattern=Device.UUID_REGEX_PATTERN,
-                                         examples=["DEVX000001"],
+                                         example="DEVX000001",
                                          description="The uuid of the device. "
                                                      "It should start with the prefix (DEV), "
                                                      "a single variable character [A-Z], "
