@@ -1,13 +1,9 @@
 """
 Module containing functions related to database setup.
 """
-import os
 import sqlite3
 
 DATABASE_PATH = "/data/devices.db"
-
-# Ensure the parent directory of the database file exists
-os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)
 
 
 def setup_database(db_name=DATABASE_PATH):

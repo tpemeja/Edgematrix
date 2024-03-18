@@ -21,6 +21,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Create /data directory
+        run: |
+          mkdir -p /data
+          chmod a+rw /data
+
       - name: Run tests
         run: pytest
 
