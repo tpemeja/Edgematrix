@@ -24,7 +24,7 @@ jobs:
       - name: Create /data directory
         run: |
           mkdir -p /data
-          chmod a+rw /data
+          sudo chmod a+rw /data
 
       - name: Run tests
         run: pytest
