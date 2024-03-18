@@ -6,8 +6,8 @@ It provides endpoints for creating, reading, updating, and deleting device infor
 ## Features
 - **CRUD Operations:** Create, read, update, and delete device information via API endpoints.
 - **Validation:** Input data is validated using Pydantic models to ensure data integrity.
-- **Database:** Utilizes SQLite for storing device information. The user needs to find a suitable location for the database.
-- **Testing:** Includes **pytest** tests to ensure the functionality of the API endpoints inside a Docker container.
+- **Database:** Utilizes SQLite for storing device information.
+- **Testing:** Includes **pytest** tests to ensure the functionality of the API endpoints.
 - **Linting:** Uses **pylint** for code linting to maintain code quality.
 
 ## Installation
