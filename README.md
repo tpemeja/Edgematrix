@@ -72,13 +72,6 @@ First, install the required dependencies by running:
 pip install -r requirements.txt
 ```
 
-### Creating Database Directory
-Ensure you have created a directory for the SQLite database. You can create it using the following command:
-
-```bash
-mkdir /data
-```
-
 ### Running Tests Locally
 To run tests locally using pytest, execute:
 
@@ -106,3 +99,6 @@ Once the FastAPI server is running locally, you can access the Swagger UI by nav
 ```bash
 http://localhost:<PORT>/docs
 ```
+
+The database will be stored in **/data/devices.db** by default
+unless the value is modified using the variable **DATABASE_PATH** in the *app/database/startup.py* file.
