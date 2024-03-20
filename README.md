@@ -3,12 +3,45 @@
 This project is a FastAPI-based application for managing devices.
 It provides endpoints for creating, reading, updating, and deleting device information, as well as running tests inside a Docker container.
 
+---
+
 ## Features
 - **CRUD Operations:** Create, read, update, and delete device information via API endpoints.
-- **Validation:** Input data is validated using Pydantic models to ensure data integrity.
-- **Database:** Utilizes SQLite for storing device information.
+- **Validation:** Input data is validated using **Pydantic** models to ensure data integrity.
+- **Database:** Utilizes **SQLite** for storing device information.
 - **Testing:** Includes **pytest** tests to ensure the functionality of the API endpoints.
 - **Linting:** Uses **pylint** for code linting to maintain code quality.
+
+---
+
+## Project Structure
+```
+.
+├── Dockerfile
+├── README.md
+├── COMMENTS.md
+├── requirements.txt
+├── .gitignore
+└── app/
+    ├── main.py
+    ├── api/
+    │   └── routers/
+    │       └── devices.py
+    ├── database/
+    │   └── operations/
+    │       └── devices.py
+    ├── models/
+    │   ├── coordinate.py
+    │   └── device.py
+    └── tests/
+        └── unit/
+            └── test_device_api.py
+└── images/
+    ├── jwt_authentication.svg
+    └── oauth2.0_authentication.svg
+```
+
+---
 
 ## Installation
 ### Clone the repository:
@@ -16,6 +49,8 @@ It provides endpoints for creating, reading, updating, and deleting device infor
 ```bash
 git clone <repository_url>
 ```
+
+---
 
 ## Usage - Docker Container
 ### Creating the Docker Image
@@ -63,6 +98,8 @@ Or to run it on an existing container
 ```bash
 docker exec <CONTAINER_NAME|CONTAINER_ID> pylint /code/app
 ```
+
+---
 
 ## Usage - Local Testing
 ### Installing Requirements
