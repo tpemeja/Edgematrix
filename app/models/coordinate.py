@@ -22,7 +22,7 @@ class Coordinate(BaseModel):
 
     @classmethod
     @field_validator('latitude')
-    def validate_latitude(cls, value):
+    def validate_latitude(cls, value: float) -> float:
         """
         Validates the latitude value to ensure it falls within the range of -90 to 90 degrees.
 
@@ -41,7 +41,7 @@ class Coordinate(BaseModel):
 
     @classmethod
     @field_validator('longitude')
-    def validate_longitude(cls, value):
+    def validate_longitude(cls, value: float) -> float:
         """
         Validates the longitude value to ensure it falls within the range of -180 to 180 degrees.
 

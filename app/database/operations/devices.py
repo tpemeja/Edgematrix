@@ -1,13 +1,13 @@
 """
 Module containing CRUD operations for devices using an SQLite database.
 """
-
+from typing import Optional
 import aiosqlite
 from app.models.device import Device
 from app.database.startup import DATABASE_PATH
 
 
-async def create_device(device: Device, db_name=DATABASE_PATH):
+async def create_device(device: Device, db_name: str = DATABASE_PATH) -> None:
     """
     Creates a new device in the database.
 
@@ -44,7 +44,7 @@ async def create_device(device: Device, db_name=DATABASE_PATH):
             await database.commit()
 
 
-async def get_device(device_uuid: str, db_name=DATABASE_PATH):
+async def get_device(device_uuid: str, db_name: str = DATABASE_PATH) -> Optional[dict]:
     """
     Retrieves a device from the database based on its UUID.
 
@@ -84,7 +84,7 @@ async def get_device(device_uuid: str, db_name=DATABASE_PATH):
             return None
 
 
-async def update_device(device: Device, db_name=DATABASE_PATH):
+async def update_device(device: Device, db_name: str = DATABASE_PATH) -> None:
     """
     Updates an existing device in the database with new information.
 
@@ -121,7 +121,7 @@ async def update_device(device: Device, db_name=DATABASE_PATH):
             await database.commit()
 
 
-async def delete_device(device_uuid: str, db_name=DATABASE_PATH):
+async def delete_device(device_uuid: str, db_name: str = DATABASE_PATH) -> None:
     """
     Deletes a device from the database based on its UUID.
 
