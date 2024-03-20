@@ -7,16 +7,17 @@ A efficient way to deploy in a production environment could be done using micros
 
 Key components of this deployment include :
 
-- Containerization : Using **Docker** to package our application components into lightweight, portable containers
-- Orchestration : **Kubernetes** to simplify the deployment process by managing our containers, handling scaling, resource allocation, and ensuring high availability. Using Kubernetes also ensure the consistency and reliability across all our environments.
-- CI/CD pipelines : **GitHub Actions** enable automated testing, integration, and deployment of our application. The workflow will pack our application into Docker images that are then deployed to Kubernetes clusters.
+- Containerization : Using **Docker** to package the application components into lightweight, portable containers
+- Orchestration : **Kubernetes** to simplify the deployment process by managing the containers, handling scaling, resource allocation, and ensuring high availability. Using Kubernetes also ensure the consistency and reliability across all the environments.
+- CI/CD pipelines : **GitHub Actions** enable automated testing, integration, and deployment of the application. The workflow will pack the application into Docker images that are then deployed to Kubernetes clusters.
 - Cloud Services : Integration with **AWS** boosts the deployment capabilities, using services such as Elastic Kubernetes Service (EKS) for managed Kubernetes clusters and AWS Lambda for serverless functionality.
-- Monitoring : Utilizing **Grafana** and **Prometheus** enables comprehensive monitoring of performance metrics for both our infrastructure appliances and deployed APIs.
+- Monitoring : Utilizing **Grafana** and **Prometheus** enables comprehensive monitoring of performance metrics for both the infrastructure appliances and deployed APIs.
 
 ## 2.2 UML Sequence Diagram
 > Create a UML sequence diagram explaining the user authentication flow you would use to securely access the API endpoints and explain what design pattern(s) you would use to secure your endpoints in FastAPI.
 
 In FastAPI, depending on the project, I will either implement JWT token authentication using local database or OAuth2.0 using *fastapi-security* library.
+
 For JWT Authentication, the sequence diagram would illustrate the following steps:
 ![JWT Authentication](images/jwt_authentication.svg)
 
@@ -36,4 +37,4 @@ In terms of improvements, I would enhance error management by implementing try-e
 
 With regard to future functionalities, I plan to enhance the device APIs by incorporating features such as device update history and introducing API routes for coordinates management. These additions would require the creation of additional tests to ensure full coverage of new features and increase the reliability of existing features through more tests.
 
-Given more time, I would also explore the use of a dedicated database in a container to improve data management improving project scalability and data processing capabilities. In addition, I would take this opportunity to further explore the use of SQLAlchemy for database management.
+With more time, I would also explore the use of a dedicated database in a container to improve data management improving project scalability and data processing capabilities. In addition, I would take this opportunity to further explore the use of SQLAlchemy for database management in FastAPI projects.
