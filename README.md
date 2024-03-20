@@ -42,23 +42,35 @@ It provides endpoints for creating, reading, updating, and deleting device infor
 ```
 
 ---
-
 ## Installation
 ### Clone the repository:
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/tpemeja/Edgematrix-Private
 ```
 
 ---
 
 ## Usage - Docker Container
-### Creating the Docker Image
-To create the Docker image, execute:
+### Getting the Docker Image
+For the rest of the project, we will assume that you have built the image locally with the name **myapp**.
+To obtain the Docker image, you have two options:
 
+#### Build the Image Locally:
+You can create the Docker image by executing the following command in the directory containing your Dockerfile:
 ```bash
 docker build -t myapp .
 ```
+This command will build the Docker image with the tag **myapp**.
+
+#### Download from Docker Hub:
+Alternatively, you can directly download the pre-built image from Docker Hub using the following command:
+
+```bash
+docker pull tpemeja/edgematrix:main-latest
+```
+This command will pull the latest version of the image tagged as main-latest from the [Docker Hub repository](https://hub.docker.com/repository/docker/tpemeja/edgematrix) *tpemeja/edgematrix*.
+
 
 ### Running the Docker Container
 To run the Docker container, execute:
